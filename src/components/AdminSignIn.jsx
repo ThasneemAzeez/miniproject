@@ -13,31 +13,38 @@ const AdminSignIn = () => {
     setInput({ ...input, [event.target.name]: event.target.value });
   };
 
-  const readValues = async () => {
-    try {
-      const response = await axios.post("http://localhost:3030/adminSignIn", input);
-      console.log(response.data);
+  const readValues = () => {
+    console.log(input);
+    axios
+      .post("http://localhost:3030/adminSignIn", input)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status === "Incorrect Password") {
+          alert("Incorrect Password");
+          setInput({
+            email: "",
+            password: "",
+          });
+        } else if (response.data.status === "Invalid email") {
+          alert("Incorrect Email or Password");
+          setInput({
+            email: "",
+            password: "",
+          });
+        } else {
+          let token = response.data.token;
+          let adminId = response.data.adminId;
+          console.log(adminId);
+          console.log(token);
 
-      if (response.data.status === "Incorrect Password") {
-        alert("Incorrect Password");
-        setInput({ email: "", password: "" }); // Clear input fields visually
-      } else if (response.data.status === "Invalid email") {
-        alert("Incorrect Email or Password");
-        setInput({ email: "", password: "" }); // Clear input fields visually
-      } else {
-        let token = response.data.token;
-        let adminId = response.data.adminId;
-        console.log(adminId);
-        console.log(token);
-
-        sessionStorage.setItem("adminId", adminId);
-        sessionStorage.setItem("token", token);
-        navigate("/Form"); // Navigate to admin dashboard after login
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Network error or Unable to sign in at this time.'); // User-friendly error message
-    }
+          sessionStorage.setItem("adminId", adminId);
+          sessionStorage.setItem("token", token);
+          navigate("/Form");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -50,7 +57,6 @@ const AdminSignIn = () => {
           <div className="col col-12 col-sm-12 col-md-12 col-lg-6 col-6 col-xl-6 col-xxl-6">
             <div className="card border-light mb-3">
               <div className="card-body">
-                <br /> {/* Remove unnecessary line breaks */}
                 <label htmlFor="email" className="form-label">EMAIL</label>
                 <input
                   type="text"
