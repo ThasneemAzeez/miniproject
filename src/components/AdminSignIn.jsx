@@ -51,12 +51,12 @@ const AdminSignIn = () => {
             <div className="card border-light mb-3">
               <div className="card-body">
                 <br /> {/* Remove unnecessary line breaks */}
-                <label htmlFor="username" className="form-label">USERNAME</label>
+                <label htmlFor="email" className="form-label">EMAIL</label>
                 <input
                   type="text"
                   className="form-control"
-                  name="username"
-                  value={input.username}
+                  name="email"
+                  value={input.email}
                   onChange={inputHandler}
                 />
                 <label htmlFor="password" className="form-label">PASSWORD</label>
