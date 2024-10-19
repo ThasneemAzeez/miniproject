@@ -19,19 +19,7 @@ const AdminSignIn = () => {
       .post("http://localhost:3030/adminSignIn", input)
       .then((response) => {
         console.log(response.data);
-        if (response.data.status === "Incorrect Password") {
-          alert("Incorrect Password");
-          setInput({
-            email: "",
-            password: "",
-          });
-        } else if (response.data.status === "Invalid email") {
-          alert("Incorrect Email or Password");
-          setInput({
-            email: "",
-            password: "",
-          });
-        } else {
+        if (response.data.status == "success") {
           let token = response.data.token;
           let adminId = response.data.adminId;
           console.log(adminId);
@@ -39,7 +27,13 @@ const AdminSignIn = () => {
 
           sessionStorage.setItem("adminId", adminId);
           sessionStorage.setItem("token", token);
-          navigate("/Form");
+          navigate("/Form"); // Navigate only on success
+        } else {
+          alert("Incorrect Email or Password");
+          setInput({
+            email: "",
+            password: "",
+          });
         }
       })
       .catch((error) => {
