@@ -16,7 +16,7 @@ const Navbar = () => {
                     <ul class="nav justify-content-right">
                         <li class="nav-item">
                             <div class="header-right" >
-                            <p align = "right">Are you an organiser <a class="nav-link" href="/admn" >signin</a></p>
+                            <p className='text-right'>Are you an organiser <a class="nav-link" className='text-right' href="/admn" >signin</a></p>
                             </div>
                             
                         </li>

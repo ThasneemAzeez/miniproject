@@ -1,39 +1,78 @@
-import React from 'react'
-import Navbar from './Navbar'
+import React, { useEffect, useState } from 'react';
+import Navbar from './Navbar';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const FrontPage = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3030/getevent_detail");
+      setData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data', error);
+      setError('Failed to load data. Please try again later');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <Navbar/>
-      <div className="container">
-        <div className="row g-3">
-          <div className="col col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-          <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Mw-BGGxIvg-Utqlk7nQaE6QFpYwTZ08ARA&s" class="d-block w-100" alt="..."/>
-    </div>
-    <div class="carousel-item">
-      <img src="https://fisat.ac.in/wp-content/uploads/2023/04/Nautilus.jpeg" class="d-block w-100" alt="..."/>
-    </div>
-    <div class="carousel-item">
-      <img src="https://fisat.ac.in/wp-content/uploads/2024/03/6251415978860723412_121.jpg" class="d-block w-100" alt="..."/>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+      <Navbar />
+
+      {/* Full-Width Carousel */}
+      <div className="carousel-container">
+        <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src="image1.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="image2.jpg" className="d-block w-100" alt="..." />
+            </div>
+            <div className="carousel-item">
+              <img src="image3.jpg" className="d-block w-100" alt="..." />
+            </div>
           </div>
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Container for Cards */}
+      <div className="container my-5">
+        <div className="row g-4">
+          {data.map((value, index) => (
+            <div className="col-12 col-sm-6 col-md-4 col-lg-4" key={index}>
+              <div className="card h-100 shadow-sm">
+                <img src={value.image} className="card-img-top" alt="Event" style={{ height: '200px', objectFit: 'cover' }} />
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title text-center">{value.name}</h5>
+                  <Link to={`/details/${value._id}`} className="btn btn-primary mt-auto">
+                    To Know More Click Here
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FrontPage
+export default FrontPage;

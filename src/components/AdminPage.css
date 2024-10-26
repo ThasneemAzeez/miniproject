@@ -1,0 +1,8 @@
+.card-overlay {
+    background-color: rgba(233, 214, 229, 0.7); /* Add a slight transparency to the card */
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%; /* Increase the width to elongate the card's breadth */
+    max-width: 800px; /* Optional: Limit the maximum width */
+    height: auto; /* Set height to auto to ensure it's flexible */
+  }

@@ -27,7 +27,7 @@ const AdminSignIn = () => {
 
           sessionStorage.setItem("adminId", adminId);
           sessionStorage.setItem("token", token);
-          navigate("/Form"); // Navigate only on success
+          navigate("/adminPage"); // Navigate only on success
         } else {
           alert("Incorrect Email or Password");
           setInput({
@@ -45,12 +45,16 @@ const AdminSignIn = () => {
     <div>
       <div className="container">
         <div className="row">
+          <h1><center>Admin SignIn Page</center></h1>
           <div className="col col-12 col-sm-12 col-md-12 col-lg-6 col-6 col-xl-6 col-xxl-6">
-            {/* Image section (optional) */}
-          </div>
+            <center><br /><br />
+            <img src="https://www.myiacs.com/images/admin.jpg" alt="Image" className="img-fluid" />
+            </center>
+          
+          </div><br />
           <div className="col col-12 col-sm-12 col-md-12 col-lg-6 col-6 col-xl-6 col-xxl-6">
-            <div className="card border-light mb-3">
-              <div className="card-body">
+            <div className="card border-light mb-3"><br />
+              <div className="card-body"><br />
                 <label htmlFor="email" className="form-label">EMAIL</label>
                 <input
                   type="text"

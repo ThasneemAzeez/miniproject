@@ -1,0 +1,61 @@
+/* Center the form container and add padding */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add styling to the header */
+main center {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Spacing between input groups */
+.row.g-3 {
+    row-gap: 1.5rem;
+}
+
+/* Form labels */
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Form inputs */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Styling for the button */
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Styling for image placeholder box */
+
+
+
+
+/* Center alignment for the button */
+button[type="button"] {
+    display: block;
+    margin: 0 auto;
+}

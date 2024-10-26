@@ -9,7 +9,7 @@ const ViewFeedback = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3030/Viewuserfeedback');
+      const response = await axios.post('http://localhost:3030/Viewuserfeedback');
       setFeedbackData(response.data);
       setLoading(false);
     } catch (error) {
