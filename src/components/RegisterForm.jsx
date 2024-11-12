@@ -1,29 +1,50 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
+    const navigate = useNavigate();
     const [data, setData] = useState({
-        "name": "",
-        "eventname": "",
-        "college": "",
-        "department": "",
-        "phnno": "",
-        "email": ""
+        name: "",
+        eventname: "",
+        college: "",
+        department: "",
+        phnno: "",
+        email: ""
     });
+
+    const [errors, setErrors] = useState({});
 
     const inputHandler = (event) => {
         setData({ ...data, [event.target.name]: event.target.value });
     };
 
+    const validate = () => {
+        const newErrors = {};
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phonePattern = /^[0-9]{10}$/; // Assuming a 10-digit phone number
+
+        if (!data.email || !emailPattern.test(data.email)) {
+            newErrors.email = "Please enter a valid email address.";
+        }
+        if (!data.phnno || !phonePattern.test(data.phnno)) {
+            newErrors.phnno = "Please enter a valid 10-digit phone number.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const readValue = () => {
+        if (!validate()) return;
+
         console.log("Data to send:", data);
 
         axios.post("http://localhost:3030/register", data)
             .then((response) => {
                 console.log("Response from backend:", response.data);
-
                 if (response.data.status === "success") {
-                    alert("Registered successfully");
+                    navigate("/rsuccess");
                 } else {
                     alert("Registration failed");
                 }
@@ -60,10 +81,12 @@ const RegisterForm = () => {
                             <div className="mb-3">
                                 <label htmlFor="phnno" className="form-label">Contact Number</label>
                                 <input type="tel" className="form-control" name="phnno" value={data.phnno} onChange={inputHandler} placeholder="Enter contact number" />
+                                {errors.phnno && <div className="text-danger">{errors.phnno}</div>}
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <input type="email" className="form-control" name="email" value={data.email} onChange={inputHandler} placeholder="Enter email" />
+                                {errors.email && <div className="text-danger">{errors.email}</div>}
                             </div>
                             <div className="d-grid">
                                 <button type="button" className="btn btn-primary btn-block" onClick={readValue}>Register</button>

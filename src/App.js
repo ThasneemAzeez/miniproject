@@ -14,6 +14,7 @@ import AdminPage from './components/AdminPage';
 import AdminView from './components/AdminView';
 import RegisterForm from './components/RegisterForm';
 import ListofParticipants from './components/ListofParticipants';
+import RegisterSuccess from './components/RegisterSuccess';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <Route path='/view-events' element={<AdminView/>}/>
       <Route path='/registerform' element={<RegisterForm/>}/>
       <Route path='/participants' element={<ListofParticipants/>}/>
+      <Route path='/rsuccess' element={<RegisterSuccess/>}/>
       </Routes>
       
       
